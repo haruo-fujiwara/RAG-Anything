@@ -41,7 +41,7 @@ async def _init_rag() -> RAGAnything:
         vision_model = os.getenv("OPENAI_VISION_MODEL", "gpt-4o")
         embedding_model = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-large")
         embedding_dim = int(os.getenv("OPENAI_EMBEDDING_DIM", "3072"))
-        working_dir = os.getenv("RAG_WORKING_DIR", "./rag_storage")
+        working_dir = os.getenv("RAG_WORKING_DIR", "./mg25")
 
         lightrag_instance = LightRAG(
             working_dir=working_dir,
@@ -150,4 +150,8 @@ async def query(request: QueryRequest) -> dict:
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
-    return {"answer": result}
+    response = {"answer": result}
+    image_paths = getattr(rag, "_current_images_paths", [])
+    if image_paths:
+        response["image_paths"] = image_paths
+    return response

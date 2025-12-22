@@ -146,7 +146,11 @@ async def query(question: str, mode: str = "hybrid") -> dict:
     """Query the existing RAGAnything knowledge base."""
     rag = await _init_rag()
     result = await rag.aquery(question, mode=mode)
-    return {"answer": result}
+    response = {"answer": result}
+    image_paths = getattr(rag, "_current_images_paths", [])
+    if image_paths:
+        response["image_paths"] = image_paths
+    return response
 
 
 if __name__ == "__main__":
