@@ -11,7 +11,11 @@ from lightrag.kg.shared_storage import initialize_pipeline_status
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
 from lightrag.utils import EmbeddingFunc
 
+from mcp_server import mcp
+
 app = FastAPI(title="RAG-Anything API")
+mcp_http_app = mcp.http_app(path="/", transport="streamable-http")
+app.mount("/mcp", mcp_http_app)
 
 _rag_instance: Optional[RAGAnything] = None
 _rag_lock = asyncio.Lock()

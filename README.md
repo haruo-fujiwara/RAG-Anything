@@ -1014,6 +1014,60 @@ python examples/text_format_test.py --check-reportlab --file dummy
 
 ---
 
+## 🔌 API and MCP Servers
+
+This repo provides two ways to serve RAGAnything:
+
+### REST API (FastAPI)
+
+The REST API runs with Uvicorn and exposes `/query`:
+
+```bash
+uvicorn api_server:app --host 0.0.0.0 --port 8000
+```
+
+```bash
+curl -X POST "http://localhost:8000/query" \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is the summary of this document?"}'
+```
+
+Run with pm2:
+
+```bash
+pm2 start /opt/homebrew/Caskroom/miniconda/base/envs/rag-anything/bin/python \
+  --name rag-anything-api -- \
+  -m uvicorn api_server:app --host 0.0.0.0 --port 8000 --workers 4
+```
+
+### MCP Server (FastMCP)
+
+`mcp_server.py` starts an MCP server with tools like `ping` and `query`.
+This is designed for stdio-based clients (e.g., Claude Desktop).
+
+```bash
+python mcp_server.py
+```
+
+### Combined REST + MCP (single Uvicorn process)
+
+`api_server.py` mounts the MCP Streamable HTTP endpoint at `/mcp`.
+This lets non-stdio MCP clients connect over HTTP while keeping the REST API.
+
+```bash
+uvicorn api_server:app --host 0.0.0.0 --port 8000
+```
+
+MCP HTTP endpoint:
+
+```
+http://localhost:8000/mcp
+```
+
+Notes:
+- Claude Desktop uses MCP stdio and should still run `mcp_server.py` directly.
+- Set `RAG_WORKING_DIR` to an absolute, writable path for MCP/REST servers.
+
 ## 🔧 Configuration
 
 *System Optimization Parameters*
