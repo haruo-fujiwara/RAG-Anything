@@ -120,6 +120,9 @@ class QueryMixin:
                 "No LightRAG instance available. Please process documents first or provide a pre-initialized LightRAG instance."
             )
 
+        # Reset last VLM image paths to avoid stale results
+        self._current_images_paths = []
+
         # Check if VLM enhanced query should be used
         vlm_enhanced = kwargs.pop("vlm_enhanced", None)
 
@@ -330,6 +333,7 @@ class QueryMixin:
         # Clear previous image cache
         if hasattr(self, "_current_images_base64"):
             delattr(self, "_current_images_base64")
+        self._current_images_paths = []
 
         # 1. Get original retrieval prompt (without generating final answer)
         query_param = QueryParam(mode=mode, only_need_prompt=True, **kwargs)
@@ -344,6 +348,7 @@ class QueryMixin:
 
         if not images_found:
             self.logger.info("No valid images found, falling back to normal query")
+            self._current_images_paths = []
             # Fallback to normal query
             query_param = QueryParam(mode=mode, **kwargs)
             return await self.lightrag.aquery(
@@ -545,6 +550,7 @@ class QueryMixin:
 
         # Initialize image cache
         self._current_images_base64 = []
+        self._current_images_paths = []
 
         # Enhanced regex pattern for matching image paths
         # Matches only the path ending with image file extensions
@@ -584,6 +590,7 @@ class QueryMixin:
                     images_processed += 1
                     # Save base64 to instance variable for later use
                     self._current_images_base64.append(image_base64)
+                    self._current_images_paths.append(image_path)
 
                     # Keep original path info and add VLM marker
                     result = f"Image Path: {image_path}\n[VLM_IMAGE_{images_processed}]"

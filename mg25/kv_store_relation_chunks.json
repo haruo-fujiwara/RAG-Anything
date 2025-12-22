@@ -1,0 +1,416 @@
+{
+  "広告収入<SEP>民放テレビ局": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390935,
+    "update_time": 1766390935,
+    "_id": "広告収入<SEP>民放テレビ局"
+  },
+  "2024年<SEP>出版社": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390935,
+    "update_time": 1766390935,
+    "_id": "2024年<SEP>出版社"
+  },
+  "2022年度<SEP>民放ラジオ": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390935,
+    "update_time": 1766390935,
+    "_id": "2022年度<SEP>民放ラジオ"
+  },
+  "2024年<SEP>電子出版市場": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390936,
+    "update_time": 1766390936,
+    "_id": "2024年<SEP>電子出版市場"
+  },
+  "AVOD<SEP>民放テレビ局": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390936,
+    "update_time": 1766390936,
+    "_id": "AVOD<SEP>民放テレビ局"
+  },
+  "2023年度<SEP>民放テレビ局": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390936,
+    "update_time": 1766390936,
+    "_id": "2023年度<SEP>民放テレビ局"
+  },
+  "2024年<SEP>出版市場": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390937,
+    "update_time": 1766390937,
+    "_id": "2024年<SEP>出版市場"
+  },
+  "2024年<SEP>電子雑誌": {
+    "chunk_ids": [
+      "chunk-3ee5750b1da1cc62f1d1062a8924ffa9"
+    ],
+    "count": 1,
+    "create_time": 1766390938,
+    "update_time": 1766390938,
+    "_id": "2024年<SEP>電子雑誌"
+  },
+  "テレビスポット出稿状況<SEP>テレビタイム出稿状況": {
+    "chunk_ids": [
+      "chunk-a8662a7b95fb64251756af49c0cff855"
+    ],
+    "count": 1,
+    "create_time": 1766391980,
+    "update_time": 1766391980,
+    "_id": "テレビスポット出稿状況<SEP>テレビタイム出稿状況"
+  },
+  "インターネット出稿状況<SEP>デジタル広告統計": {
+    "chunk_ids": [
+      "chunk-a8662a7b95fb64251756af49c0cff855"
+    ],
+    "count": 1,
+    "create_time": 1766391980,
+    "update_time": 1766391980,
+    "_id": "インターネット出稿状況<SEP>デジタル広告統計"
+  },
+  "ADC汎用クロス集計<SEP>HSOS": {
+    "chunk_ids": [
+      "chunk-a8662a7b95fb64251756af49c0cff855"
+    ],
+    "count": 1,
+    "create_time": 1766391980,
+    "update_time": 1766391980,
+    "_id": "ADC汎用クロス集計<SEP>HSOS"
+  },
+  "テレビタイム出稿状況<SEP>ラジオスポット出稿状況": {
+    "chunk_ids": [
+      "chunk-a8662a7b95fb64251756af49c0cff855"
+    ],
+    "count": 1,
+    "create_time": 1766391980,
+    "update_time": 1766391980,
+    "_id": "テレビタイム出稿状況<SEP>ラジオスポット出稿状況"
+  },
+  "インターネット出稿状況<SEP>インターネット広告の広告主": {
+    "chunk_ids": [
+      "chunk-a8662a7b95fb64251756af49c0cff855"
+    ],
+    "count": 1,
+    "create_time": 1766391981,
+    "update_time": 1766391981,
+    "_id": "インターネット出稿状況<SEP>インターネット広告の広告主"
+  },
+  "テレビスポット出稿状況<SEP>ラジオスポット出稿状況": {
+    "chunk_ids": [
+      "chunk-a8662a7b95fb64251756af49c0cff855"
+    ],
+    "count": 1,
+    "create_time": 1766391981,
+    "update_time": 1766391981,
+    "_id": "テレビスポット出稿状況<SEP>ラジオスポット出稿状況"
+  },
+  "Smartphone<SEP>Women": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393852,
+    "update_time": 1766393852,
+    "_id": "Smartphone<SEP>Women"
+  },
+  "Men<SEP>PC": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393852,
+    "update_time": 1766393852,
+    "_id": "Men<SEP>PC"
+  },
+  "30s age group<SEP>Television": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393852,
+    "update_time": 1766393852,
+    "_id": "30s age group<SEP>Television"
+  },
+  "Age<SEP>Media Consumption Time": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393852,
+    "update_time": 1766393852,
+    "_id": "Age<SEP>Media Consumption Time"
+  },
+  "60s age group<SEP>Radio Listening Reach": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393852,
+    "update_time": 1766393852,
+    "_id": "60s age group<SEP>Radio Listening Reach"
+  },
+  "40s age group<SEP>Newspaper Reach": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393852,
+    "update_time": 1766393852,
+    "_id": "40s age group<SEP>Newspaper Reach"
+  },
+  "All age groups<SEP>Magazine Reach": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393852,
+    "update_time": 1766393852,
+    "_id": "All age groups<SEP>Magazine Reach"
+  },
+  "Gender<SEP>Tablet Internet Reach": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393853,
+    "update_time": 1766393853,
+    "_id": "Gender<SEP>Tablet Internet Reach"
+  },
+  "40s to 60s<SEP>Television": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393853,
+    "update_time": 1766393853,
+    "_id": "40s to 60s<SEP>Television"
+  },
+  "Internet Reach<SEP>Smartphone": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393853,
+    "update_time": 1766393853,
+    "_id": "Internet Reach<SEP>Smartphone"
+  },
+  "Media<SEP>VR-CIP ACR/ex": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393853,
+    "update_time": 1766393853,
+    "_id": "Media<SEP>VR-CIP ACR/ex"
+  },
+  "Media<SEP>Older Adults": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393853,
+    "update_time": 1766393853,
+    "_id": "Media<SEP>Older Adults"
+  },
+  "60s<SEP>Television": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393854,
+    "update_time": 1766393854,
+    "_id": "60s<SEP>Television"
+  },
+  "10s and 20s<SEP>Smartphone": {
+    "chunk_ids": [
+      "chunk-8d6af4b9e81853e3ed3a09442bc2b75c"
+    ],
+    "count": 1,
+    "create_time": 1766393854,
+    "update_time": 1766393854,
+    "_id": "10s and 20s<SEP>Smartphone"
+  },
+  "Media<SEP>Younger Adults": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393854,
+    "update_time": 1766393854,
+    "_id": "Media<SEP>Younger Adults"
+  },
+  "Advertising Impression<SEP>Media": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393854,
+    "update_time": 1766393854,
+    "_id": "Advertising Impression<SEP>Media"
+  },
+  "CS/CATV<SEP>Media": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393855,
+    "update_time": 1766393855,
+    "_id": "CS/CATV<SEP>Media"
+  },
+  "Media Total Contact Time<SEP>Mobile Phone/Smartphone": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393855,
+    "update_time": 1766393855,
+    "_id": "Media Total Contact Time<SEP>Mobile Phone/Smartphone"
+  },
+  "Media<SEP>Newspapers": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393855,
+    "update_time": 1766393855,
+    "_id": "Media<SEP>Newspapers"
+  },
+  "Media Total Contact Time<SEP>Television": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393855,
+    "update_time": 1766393855,
+    "_id": "Media Total Contact Time<SEP>Television"
+  },
+  "Magazines<SEP>Media": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393856,
+    "update_time": 1766393856,
+    "_id": "Magazines<SEP>Media"
+  },
+  "Age/Gender Media Contact Time<SEP>Mobile Phone/Smartphone": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393856,
+    "update_time": 1766393856,
+    "_id": "Age/Gender Media Contact Time<SEP>Mobile Phone/Smartphone"
+  },
+  "2024<SEP>Media Total Contact Time": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393856,
+    "update_time": 1766393856,
+    "_id": "2024<SEP>Media Total Contact Time"
+  },
+  "Media Total Contact Time<SEP>Video Research": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393856,
+    "update_time": 1766393856,
+    "_id": "Media Total Contact Time<SEP>Video Research"
+  },
+  "Media Contact Reach<SEP>Smartphone": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393856,
+    "update_time": 1766393856,
+    "_id": "Media Contact Reach<SEP>Smartphone"
+  },
+  "Internet (PC)<SEP>Media": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393856,
+    "update_time": 1766393856,
+    "_id": "Internet (PC)<SEP>Media"
+  },
+  "Internet (Tablet)<SEP>Media": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393856,
+    "update_time": 1766393856,
+    "_id": "Internet (Tablet)<SEP>Media"
+  },
+  "Media Contact Reach<SEP>Television": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393857,
+    "update_time": 1766393857,
+    "_id": "Media Contact Reach<SEP>Television"
+  },
+  "Internet (Smartphone)<SEP>Media": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393857,
+    "update_time": 1766393857,
+    "_id": "Internet (Smartphone)<SEP>Media"
+  },
+  "Media Contact Reach<SEP>PC": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393857,
+    "update_time": 1766393857,
+    "_id": "Media Contact Reach<SEP>PC"
+  },
+  "Media<SEP>Television": {
+    "chunk_ids": [
+      "chunk-5ee4d84af28d25118f8459db75e94aab"
+    ],
+    "count": 1,
+    "create_time": 1766393857,
+    "update_time": 1766393857,
+    "_id": "Media<SEP>Television"
+  },
+  "Media Contact Reach<SEP>Tablet": {
+    "chunk_ids": [
+      "chunk-6531b834caeb903ffcfc7067db4fc6f4"
+    ],
+    "count": 1,
+    "create_time": 1766393858,
+    "update_time": 1766393858,
+    "_id": "Media Contact Reach<SEP>Tablet"
+  }
+}
