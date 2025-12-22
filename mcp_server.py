@@ -1,10 +1,11 @@
 import asyncio
 import os
+import sys
 from typing import Optional
 
 from fastmcp import FastMCP
 
-from raganything import RAGAnything
+from raganything import RAGAnything, RAGAnythingConfig
 from lightrag import LightRAG
 from lightrag.kg.shared_storage import initialize_pipeline_status
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
@@ -32,6 +33,11 @@ async def _init_rag() -> RAGAnything:
         embedding_model = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-large")
         embedding_dim = int(os.getenv("OPENAI_EMBEDDING_DIM", "3072"))
         working_dir = os.getenv("RAG_WORKING_DIR", "./rag_storage")
+        print(
+            f"[mcp_server] RAG_WORKING_DIR={working_dir}",
+            file=sys.stderr,
+            flush=True,
+        )
 
         lightrag_instance = LightRAG(
             working_dir=working_dir,
@@ -111,9 +117,11 @@ async def _init_rag() -> RAGAnything:
                 prompt, system_prompt, history_messages, **kwargs
             )
 
+        config = RAGAnythingConfig(working_dir=working_dir)
         _rag_instance = RAGAnything(
             lightrag=lightrag_instance,
             vision_model_func=vision_model_func,
+            config=config,
         )
         return _rag_instance
 
@@ -122,6 +130,15 @@ async def _init_rag() -> RAGAnything:
 def ping(name: str = "world") -> str:
     """Simple tool to validate MCP connectivity."""
     return f"pong, {name}"
+
+
+@mcp.tool()
+def debug_config() -> dict:
+    """Return minimal runtime config for troubleshooting."""
+    return {
+        "rag_working_dir": os.getenv("RAG_WORKING_DIR", "./rag_storage"),
+        "openai_api_key_set": bool(os.getenv("OPENAI_API_KEY")),
+    }
 
 
 @mcp.tool()
