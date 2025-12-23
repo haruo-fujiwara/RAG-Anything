@@ -7,6 +7,7 @@ via LightRAG env config.
 
 import argparse
 import asyncio
+import json
 import os
 from pathlib import Path
 
@@ -14,10 +15,40 @@ import sys
 
 from dotenv import load_dotenv
 
+# Ensure local package imports take precedence over any installed version.
+sys.path.append(str(Path(__file__).parent.parent))
+
 
 def _configure_graph_backend(backend: str) -> None:
     if backend == "neo4j":
         os.environ["LIGHTRAG_GRAPH_STORAGE"] = "Neo4JStorage"
+
+
+def _load_processed_file_paths(working_dir: str) -> set[str]:
+    status_path = Path(working_dir) / "kv_store_doc_status.json"
+    if not status_path.exists():
+        return set()
+
+    try:
+        data = json.loads(status_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as exc:
+        print(f"Warning: failed to read doc status store: {exc}")
+        return set()
+
+    processed = set()
+    for value in data.values():
+        if isinstance(value, dict) and value.get("file_path"):
+            processed.add(str(value["file_path"]))
+    return processed
+
+
+def _should_skip(input_path: Path, per_doc_output: Path, processed: set[str]) -> bool:
+    candidates = {str(input_path.resolve()), input_path.name}
+    if input_path.suffix.lower() == ".pptx":
+        expected_pdf = per_doc_output / f"{input_path.stem}.pdf"
+        candidates.add(str(expected_pdf.resolve()))
+        candidates.add(expected_pdf.name)
+    return any(candidate in processed for candidate in candidates)
 
 
 def _build_rag(api_key: str, base_url: str, working_dir: str, parser_name: str):
@@ -34,6 +65,8 @@ def _build_rag(api_key: str, base_url: str, working_dir: str, parser_name: str):
         enable_table_processing=True,
         enable_equation_processing=True,
     )
+    if hasattr(config, "use_full_path"):
+        config.use_full_path = True
 
     def llm_model_func(prompt, system_prompt=None, history_messages=None, **kwargs):
         return openai_complete_if_cache(
@@ -117,9 +150,13 @@ async def _ingest_dir(rag, input_dir: Path, output_dir: Path) -> None:
         return
 
     output_dir.mkdir(parents=True, exist_ok=True)
+    processed = _load_processed_file_paths(rag.config.working_dir)
     for input_path in candidates:
         per_doc_output = output_dir / input_path.stem
         per_doc_output.mkdir(parents=True, exist_ok=True)
+        if _should_skip(input_path, per_doc_output, processed):
+            print(f"Skipping already-processed file: {input_path.name}")
+            continue
         file_path = input_path
         if input_path.suffix.lower() == ".pptx":
             from raganything.parser import Parser
@@ -180,7 +217,6 @@ def main() -> None:
     load_dotenv(dotenv_path=".env", override=False)
     _configure_graph_backend(args.backend)
 
-    sys.path.append(str(Path(__file__).parent.parent))
     rag = _build_rag(args.api_key, args.base_url, args.working_dir, args.parser)
 
     asyncio.run(_ingest_dir(rag, input_dir, Path(args.output_dir)))
