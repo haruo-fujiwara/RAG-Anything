@@ -6,6 +6,7 @@ from typing import Optional
 from fastmcp import FastMCP
 
 from raganything import RAGAnything, RAGAnythingConfig
+from raganything.utils import extract_reference_paths
 from lightrag import LightRAG
 from lightrag.kg.shared_storage import initialize_pipeline_status
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
@@ -150,6 +151,9 @@ async def query(question: str, mode: str = "hybrid") -> dict:
     image_paths = getattr(rag, "_current_images_paths", [])
     if image_paths:
         response["image_paths"] = image_paths
+    reference_paths = extract_reference_paths(result)
+    if reference_paths:
+        response["reference_paths"] = reference_paths
     return response
 
 

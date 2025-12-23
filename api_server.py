@@ -6,12 +6,13 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 from raganything import RAGAnything
+from raganything.utils import extract_reference_paths
 from lightrag import LightRAG
 from lightrag.kg.shared_storage import initialize_pipeline_status
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
 from lightrag.utils import EmbeddingFunc
 
-from mcp_server import mcp
+from mcp_stdio_server import mcp
 
 app = FastAPI(title="RAG-Anything API")
 mcp_http_app = mcp.http_app(path="/", transport="streamable-http")
@@ -154,4 +155,7 @@ async def query(request: QueryRequest) -> dict:
     image_paths = getattr(rag, "_current_images_paths", [])
     if image_paths:
         response["image_paths"] = image_paths
+    reference_paths = extract_reference_paths(result)
+    if reference_paths:
+        response["reference_paths"] = reference_paths
     return response
