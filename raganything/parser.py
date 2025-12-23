@@ -13,6 +13,7 @@ from __future__ import annotations
 
 
 import json
+import os
 import argparse
 import base64
 import subprocess
@@ -827,9 +828,9 @@ class MineruParser(Parser):
                 with open(json_file, "r", encoding="utf-8") as f:
                     content_list = json.load(f)
 
-                # Always fix relative paths in content_list to absolute paths
+                # Normalize image paths to be relative to output_dir
                 logging.info(
-                    f"Fixing image paths in {json_file} with base directory: {images_base_dir}"
+                    f"Normalizing image paths in {json_file} with base directory: {images_base_dir}"
                 )
                 for item in content_list:
                     if isinstance(item, dict):
@@ -840,10 +841,16 @@ class MineruParser(Parser):
                         ]:
                             if field_name in item and item[field_name]:
                                 img_path = item[field_name]
-                                absolute_img_path = (
-                                    images_base_dir / img_path
-                                ).resolve()
-                                item[field_name] = str(absolute_img_path)
+                                absolute_img_path = (images_base_dir / img_path).resolve()
+                                try:
+                                    relative_img_path = absolute_img_path.relative_to(
+                                        output_dir
+                                    )
+                                except ValueError:
+                                    relative_img_path = Path(
+                                        os.path.relpath(absolute_img_path, output_dir)
+                                    )
+                                item[field_name] = str(relative_img_path)
                                 logging.debug(
                                     f"Updated {field_name}: {img_path} -> {item[field_name]}"
                                 )
@@ -1517,9 +1524,13 @@ class DoclingParser(Parser):
                 image_path = image_dir / f"image_{num}.png"
                 with open(image_path, "wb") as f:
                     f.write(base64.b64decode(base64_str))
+                try:
+                    relative_path = image_path.relative_to(output_dir)
+                except ValueError:
+                    relative_path = Path(os.path.relpath(image_path, output_dir))
                 return {
                     "type": "image",
-                    "img_path": str(image_path.resolve()),  # Convert to absolute path
+                    "img_path": str(relative_path),
                     "image_caption": block.get("caption", ""),
                     "image_footnote": block.get("footnote", ""),
                     "page_idx": cnt // 10,

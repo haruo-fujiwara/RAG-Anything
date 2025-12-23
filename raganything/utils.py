@@ -5,6 +5,8 @@ Contains helper functions for content separation, text insertion, and other util
 """
 
 import base64
+import os
+import re
 from typing import Dict, List, Any, Tuple
 from pathlib import Path
 from lightrag.utils import logger
@@ -67,7 +69,8 @@ def encode_image_to_base64(image_path: str) -> str:
         str: Base64 encoded string, empty string if encoding fails
     """
     try:
-        with open(image_path, "rb") as image_file:
+        resolved_path = resolve_media_path(image_path)
+        with open(resolved_path, "rb") as image_file:
             encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
         return encoded_string
     except Exception as e:
@@ -87,7 +90,7 @@ def validate_image_file(image_path: str, max_size_mb: int = 50) -> bool:
         bool: True if valid, False otherwise
     """
     try:
-        path = Path(image_path)
+        path = resolve_media_path(image_path)
 
         logger.debug(f"Validating image path: {image_path}")
         logger.debug(f"Resolved path object: {path}")
@@ -137,6 +140,60 @@ def validate_image_file(image_path: str, max_size_mb: int = 50) -> bool:
     except Exception as e:
         logger.error(f"Error validating image file {image_path}: {e}")
         return False
+
+
+def resolve_media_path(media_path: str) -> Path:
+    """
+    Resolve a media path using MEDIA_BASE_PATH or OUTPUT_DIR when given a relative path.
+    """
+    path = Path(media_path)
+    if path.is_absolute():
+        return path
+    base = os.getenv("MEDIA_BASE_PATH") or os.getenv("OUTPUT_DIR") or "./output"
+    return (Path(base) / path).resolve()
+
+
+def extract_reference_paths(answer: str) -> List[str]:
+    """
+    Extract reference file paths from an answer string if a References/Sources block exists.
+
+    Args:
+        answer: Full answer text (may include reference block).
+
+    Returns:
+        List of reference paths in the order they appear.
+    """
+    if not answer:
+        return []
+
+    pattern = re.compile(
+        r"(?:^|\n)\s*(?:#{1,6}\s*)?(References?|Sources?)\s*:?",
+        re.IGNORECASE,
+    )
+    matches = list(pattern.finditer(answer))
+    if not matches:
+        return []
+
+    start = matches[-1].end()
+    refs_block = answer[start:].strip()
+    if not refs_block:
+        return []
+
+    # Handle bracketed list: [a, b]
+    if refs_block.startswith("[") and refs_block.endswith("]"):
+        inner = refs_block[1:-1].strip()
+        return [item.strip().strip("'\"") for item in inner.split(",") if item.strip()]
+
+    refs = []
+    for line in refs_block.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        line = re.sub(r"^[-*•\d\)\.\s]+", "", line).strip()
+        line = re.sub(r"^\[\d+\]\s*", "", line)
+        if line:
+            refs.append(line)
+    return refs
 
 
 async def insert_text_content(
