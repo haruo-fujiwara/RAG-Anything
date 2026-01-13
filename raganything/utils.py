@@ -5,6 +5,7 @@ Contains helper functions for content separation, text insertion, and other util
 """
 
 import base64
+import io
 import os
 import re
 from typing import Dict, List, Any, Tuple
@@ -194,6 +195,47 @@ def extract_reference_paths(answer: str) -> List[str]:
         if line:
             refs.append(line)
     return refs
+
+
+def compress_image_to_base64(
+    image_path: str,
+    max_size_kb: int = 900,
+    max_dimension_px: int = 1024,
+    jpeg_quality: int = 70,
+) -> str:
+    """
+    Compress an image to JPEG and return base64 with size constraints.
+
+    Args:
+        image_path: Path to the image (relative or absolute).
+        max_size_kb: Target max size in KB.
+        max_dimension_px: Max width/height in pixels.
+        jpeg_quality: Initial JPEG quality (1-95).
+
+    Returns:
+        Base64 encoded JPEG string.
+    """
+    try:
+        from PIL import Image
+    except ImportError as exc:
+        raise RuntimeError("Pillow is required for image compression.") from exc
+
+    resolved_path = resolve_media_path(image_path)
+    with Image.open(resolved_path) as img:
+        img = img.convert("RGB")
+        if max_dimension_px and max(img.size) > max_dimension_px:
+            img.thumbnail((max_dimension_px, max_dimension_px), Image.LANCZOS)
+
+        quality = max(1, min(95, int(jpeg_quality)))
+        for _ in range(10):
+            buffer = io.BytesIO()
+            img.save(buffer, format="JPEG", quality=quality, optimize=True)
+            data = buffer.getvalue()
+            if len(data) <= max_size_kb * 1024 or quality <= 30:
+                return base64.b64encode(data).decode("utf-8")
+            quality -= 10
+
+        return base64.b64encode(data).decode("utf-8")
 
 
 async def insert_text_content(

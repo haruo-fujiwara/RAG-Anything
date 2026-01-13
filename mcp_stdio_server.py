@@ -1,4 +1,5 @@
 import asyncio
+import mimetypes
 import os
 import sys
 from typing import Optional
@@ -6,7 +7,7 @@ from typing import Optional
 from fastmcp import FastMCP
 
 from raganything import RAGAnything, RAGAnythingConfig
-from raganything.utils import extract_reference_paths
+from raganything.utils import compress_image_to_base64, extract_reference_paths
 from lightrag import LightRAG
 from lightrag.kg.shared_storage import initialize_pipeline_status
 from lightrag.llm.openai import openai_complete_if_cache, openai_embed
@@ -143,17 +144,61 @@ def debug_config() -> dict:
 
 
 @mcp.tool()
-async def query(question: str, mode: str = "hybrid") -> dict:
+async def query(
+    question: str,
+    mode: str = "hybrid",
+    image_response: str = "paths",
+    compressed: bool = False,
+    max_images: int = 0,
+    max_image_kb: int = 900,
+    max_image_px: int = 1024,
+    jpeg_quality: int = 70,
+) -> dict:
     """Query the existing RAGAnything knowledge base."""
     rag = await _init_rag()
     result = await rag.aquery(question, mode=mode)
     response = {"answer": result}
     image_paths = getattr(rag, "_current_images_paths", [])
+    if max_images > 0:
+        image_paths = image_paths[:max_images]
     if image_paths:
         response["image_paths"] = image_paths
     reference_paths = extract_reference_paths(result)
     if reference_paths:
         response["reference_paths"] = reference_paths
+    if image_response == "base64":
+        images_base64 = getattr(rag, "_current_images_base64", [])
+        if max_images > 0:
+            images_base64 = images_base64[:max_images]
+        content = [
+            {
+                "type": "text",
+                "text": "Here are the relevant images found in the knowledge graph:",
+            }
+        ]
+        for idx, image_data in enumerate(images_base64):
+            mime_type = "image/jpeg"
+            if idx < len(image_paths):
+                guess, _ = mimetypes.guess_type(image_paths[idx])
+                if guess:
+                    mime_type = guess
+            if compressed and idx < len(image_paths):
+                image_data = compress_image_to_base64(
+                    image_paths[idx],
+                    max_size_kb=max_image_kb,
+                    max_dimension_px=max_image_px,
+                    jpeg_quality=jpeg_quality,
+                )
+                mime_type = "image/jpeg"
+            content.append(
+                {
+                    "type": "image",
+                    "data": image_data,
+                    "mimeType": mime_type,
+                }
+            )
+        response["content"] = content
+        response.pop("image_paths", None)
     return response
 
 
