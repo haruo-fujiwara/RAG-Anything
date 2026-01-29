@@ -128,6 +128,14 @@ async def _init_rag() -> RAGAnything:
         return _rag_instance
 
 
+async def init_rag() -> RAGAnything:
+    return await _init_rag()
+
+
+def rag_ready() -> bool:
+    return _rag_instance is not None
+
+
 @mcp.tool()
 def ping(name: str = "world") -> str:
     """Simple tool to validate MCP connectivity."""
